@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Token Sayacı</title>
+<link rel="stylesheet" href="/style.css" />
+</head>
+<body>
+<div class="page">
+<header class="topbar">
+  <div class="brand">
+    <span class="brand-dot"></span>
+    <h1>Token Sayacı</h1>
+  </div>
+  <div class="health" id="health">
+    <span class="health-dot" id="healthDot"></span>
+    <span id="healthText">bağlanıyor…</span>
+    <a href="/settings.html" class="settings-link">⚙ Sağlayıcılar</a>
+  </div>
+</header>
+
+<section class="env-section">
+  <div class="env-header">
+    <span class="env-title">Dinlenen Sağlayıcılar</span>
+    <div class="env-bulk">
+      <button type="button" id="envAllBtn">Tümünü seç</button>
+      <button type="button" id="envNoneBtn">Hiçbiri</button>
+    </div>
+  </div>
+  <div class="env-checkboxes" id="envCheckboxes"></div>
+</section>
+
+<section class="filters">
+  <div class="presets" id="presets">
+    <button data-range="today">Bugün</button>
+    <button data-range="24h">Son 24 Saat</button>
+    <button data-range="7d" class="active">Son 7 Gün</button>
+    <button data-range="30d">Son 30 Gün</button>
+    <button data-range="all">Tümü</button>
+  </div>
+  <div class="custom-range">
+    <label>Başlangıç <input type="datetime-local" id="fromInput" /></label>
+    <label>Bitiş <input type="datetime-local" id="toInput" /></label>
+  </div>
+  <div class="dropdowns">
+    <label>Model
+      <select id="modelSelect"><option value="">Tümü</option></select>
+    </label>
+  </div>
+  <div class="actions">
+    <label class="toggle"><input type="checkbox" id="autoRefresh" checked /> Otomatik yenile</label>
+    <button id="exportBtn">CSV indir</button>
+  </div>
+</section>
+
+<section class="cards" id="cards">
+  <div class="card"><div class="card-label">Toplam Token</div><div class="card-value" id="statTotal">–</div></div>
+  <div class="card"><div class="card-label">Prompt Token</div><div class="card-value" id="statPrompt">–</div></div>
+  <div class="card"><div class="card-label">Üretilen (Completion) Token</div><div class="card-value" id="statCompletion">–</div></div>
+  <div class="card"><div class="card-label">İstek Sayısı</div><div class="card-value" id="statCount">–</div></div>
+  <div class="card"><div class="card-label">Ortalama Üretim Hızı</div><div class="card-value" id="statAvgTps">–</div></div>
+  <div class="card live-card">
+    <div class="card-label">Anlık Üretim Hızı</div>
+    <div class="card-value" id="liveTps">boşta</div>
+    <div class="live-sub" id="liveSub"></div>
+  </div>
+</section>
+
+<section class="charts">
+  <div class="chart-box">
+    <h2>Zaman İçinde Token Kullanımı</h2>
+    <div class="chart-canvas-wrap"><canvas id="timeseriesChart"></canvas></div>
+  </div>
+  <div class="chart-row">
+    <div class="chart-box half">
+      <h2>Model Bazında Token</h2>
+      <div class="chart-canvas-wrap"><canvas id="modelChart"></canvas></div>
+    </div>
+    <div class="chart-box half">
+      <h2>Ortam Bazında Token</h2>
+      <div class="chart-canvas-wrap"><canvas id="envChart"></canvas></div>
+    </div>
+  </div>
+</section>
+
+<section class="table-section">
+  <h2>Son İstekler</h2>
+  <div class="table-wrap">
+    <table id="eventsTable">
+      <thead>
+        <tr>
+          <th>Zaman</th><th>Ortam</th><th>Model</th><th>Prompt</th><th>Completion</th><th>Toplam</th><th>Hız (t/s)</th><th>Durum</th>
+        </tr>
+      </thead>
+      <tbody id="eventsBody"></tbody>
+    </table>
+  </div>
+</section>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<script src="/app.js"></script>
+</body>
+</html>

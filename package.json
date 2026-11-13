@@ -1,0 +1,13 @@
+{
+  "name": "local-llm-token-sayaci",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Yerel LLM (LM Studio, Ollama...) token kullanim takip paneli",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

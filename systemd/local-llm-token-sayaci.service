@@ -1,0 +1,15 @@
+[Unit]
+Description=Local LLM Token Sayaci (LM Studio / Ollama token kullanim paneli)
+After=network.target graphical-session.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/env node src/server.js
+WorkingDirectory=%h/Documents/Local_LLM_Token Sayacı
+Restart=on-failure
+RestartSec=3
+Environment=PORT=7879
+Environment=HOST=127.0.0.1
+
+[Install]
+WantedBy=default.target

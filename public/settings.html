@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Sağlayıcı Ayarları · Token Sayacı</title>
+<link rel="stylesheet" href="/style.css" />
+</head>
+<body>
+<div class="page">
+<header class="topbar">
+  <div class="brand">
+    <span class="brand-dot"></span>
+    <h1>Sağlayıcı Ayarları</h1>
+  </div>
+  <a href="/" class="back-link">← Panele dön</a>
+</header>
+
+<section class="filters" style="flex-direction:column; align-items:stretch;">
+  <h2 style="margin:0 0 4px; font-size:0.85rem;">Yeni Sağlayıcı / Proxy Ekle</h2>
+  <p class="hint">
+    Gerçek sağlayıcıya (OpenAI, Anthropic vb.) doğrudan gidiyorsan "Upstream URL" alanına onun API kökünü yaz
+    (örn. <code>https://api.openai.com</code>). Kendi kurumsal/iç ağ proxy'ne gidiyorsan oranın kökünü yaz. API key
+    değişmez; sadece client'ının "base URL" ayarını buradan üretilen proxy adresine çevirirsin.
+  </p>
+  <form id="providerForm" class="provider-form">
+    <input type="hidden" id="editId" value="" />
+    <label>Etiket<input type="text" id="fLabel" placeholder="ör. openai-kisisel" required /></label>
+    <label>Protokol
+      <select id="fProtocol">
+        <option value="openai">OpenAI uyumlu (/v1/chat/completions)</option>
+        <option value="anthropic">Anthropic uyumlu (/v1/messages)</option>
+      </select>
+    </label>
+    <label class="grow">Upstream Base URL<input type="text" id="fUrl" placeholder="https://api.openai.com" required /></label>
+    <label>API Key<input type="password" id="fKey" placeholder="değiştirmek istemiyorsan boş bırak" autocomplete="off" /></label>
+    <label class="toggle"><input type="checkbox" id="fEnabled" checked /> Etkin</label>
+    <div class="form-actions">
+      <button type="submit" id="submitBtn">Ekle</button>
+      <button type="button" id="cancelEditBtn" hidden>Vazgeç</button>
+    </div>
+  </form>
+  <details class="advanced">
+    <summary>Gelişmiş (özel auth header)</summary>
+    <div class="custom-range">
+      <label>Header adı<input type="text" id="fAuthHeader" placeholder="Authorization / x-api-key" /></label>
+      <label>Şema (öneki)<input type="text" id="fAuthScheme" placeholder="Bearer (boş da olabilir)" /></label>
+    </div>
+  </details>
+</section>
+
+<section class="table-section">
+  <h2>Kayıtlı Sağlayıcılar</h2>
+  <div id="providerList" class="provider-list"></div>
+</section>
+
+<script src="/settings.js"></script>
+</div>
+</body>
+</html>

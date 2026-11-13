@@ -1,0 +1,11 @@
+[Unit]
+Description=tokendashboard:80 -> 127.0.0.1:7879 iptables yonlendirmesi
+After=network.target
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+ExecStart=/bin/bash "/home/tekinaltun/Documents/Local_LLM_Token Sayacı/scripts/port80-redirect.sh"
+
+[Install]
+WantedBy=multi-user.target
